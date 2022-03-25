@@ -3,54 +3,74 @@
     "description": "UVDesk Community Helpdesk Project Skeleton",
     "type": "project",
     "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-        "php": "^7.2",
+        "php": "^7.2.5 || ^8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "doctrine/doctrine-bundle": "^1.12.13",
-        "doctrine/doctrine-fixtures-bundle": "^3.4.0",
-        "doctrine/doctrine-migrations-bundle": "^2.2.2",
-        "google/recaptcha": "^1.2.4",
-        "ocramius/proxy-manager": "2.2.3",
-        "knplabs/knp-paginator-bundle": "^4.1.1",
-        "sensio/framework-extra-bundle": "^5.5.3",
-        "symfony/asset": "4.3.*",
-        "symfony/console": "4.3.*",
-        "symfony/dotenv": "4.3.*",
-        "symfony/expression-language": "4.3.*",
-        "symfony/flex": "^1.12.2",
-        "symfony/form": "4.3.*",
-        "symfony/framework-bundle": "4.3.*",
-        "symfony/http-client": "4.3.*",
-        "symfony/intl": "4.3.*",
-        "symfony/monolog-bundle": "^3.6.0",
+        "uvdesk/composer-plugin": "^1.1",
+        "symfony/flex": "^1.17|^2"
+    },
+    "flex-require": {
+        "doctrine/annotations": "^1.0",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "google/recaptcha": "^1.2",
+        "knplabs/knp-paginator-bundle": "^5.8",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.2",
+        "sensio/framework-extra-bundle": "^6.1",
+        "symfony/asset": "*",
+        "symfony/console": "*",
+        "symfony/dotenv": "*",
+        "symfony/expression-language": "*",
+        "symfony/form": "*",
+        "symfony/framework-bundle": "*",
+        "symfony/http-client": "*",
+        "symfony/intl": "*",
+        "symfony/mailer": "*",
+        "symfony/mime": "*",
+        "symfony/monolog-bundle": "^3.1",
+        "symfony/notifier": "*",
         "symfony/orm-pack": "*",
-        "symfony/process": "4.3.*",
-        "symfony/security-bundle": "4.3.*",
-        "symfony/serializer-pack": "*",
-        "symfony/swiftmailer-bundle": "^3.4.0",
-        "symfony/translation": "4.3.*",
-        "symfony/twig-bundle": "4.3.*",
-        "symfony/validator": "4.3.*",
-        "symfony/var-dumper": "4.3.*",
-        "symfony/web-link": "4.3.*",
-        "symfony/yaml": "4.3.*",
-        "uvdesk/composer-plugin": "^1.0",
-        "uvdesk/core-framework": "^1.0",
-        "uvdesk/extension-framework": "^1.0",
-        "uvdesk/automation-bundle": "^1.0",
-        "uvdesk/support-center-bundle": "^1.0",
-        "uvdesk/mailbox-component": "^1.0"
+        "symfony/process": "*",
+        "symfony/property-access": "*",
+        "symfony/property-info": "*",
+        "symfony/proxy-manager-bridge": "*",
+        "symfony/runtime": "*",
+        "symfony/security-bundle": "*",
+        "symfony/serializer": "*",
+        "symfony/string": "*",
+        "symfony/swiftmailer-bundle": "^3.5",
+        "symfony/translation": "*",
+        "symfony/twig-bundle": "*",
+        "symfony/validator": "*",
+        "symfony/web-link": "*",
+        "symfony/yaml": "*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0",
+        "uvdesk/automation-bundle": "^1.1",
+        "uvdesk/core-framework": "^1.1",
+        "uvdesk/extension-framework": "^1.1",
+        "uvdesk/mailbox-component": "^1.1",
+        "uvdesk/support-center-bundle": "^1.1"
     },
     "require-dev": {
+    },
+    "flex-require-dev": {
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*",
-        "symfony/web-server-bundle": "4.3.*",
-        "uvdesk/api-bundle": "^1.0@dev"
+        "symfony/test-pack": "*"
     },
     "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true,
+            "symfony/runtime": true,
+            "uvdesk/composer-plugin": true
+        },
+        "optimize-autoloader": true,
         "preferred-install": {
             "*": "dist"
         },
@@ -67,14 +87,15 @@
         }
     },
     "replace": {
-        "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php56": "*"
+        "symfony/polyfill-php72": "*"
     },
     "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
         "post-install-cmd": [
             "@auto-scripts"
         ],
@@ -87,12 +108,11 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "1.1.x-dev"
         },
         "symfony": {
             "allow-contrib": false,
-            "require": "4.3.*"
+            "require": "^5.4"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }

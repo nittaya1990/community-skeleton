@@ -41,14 +41,14 @@ class ExceptionSubscriber implements EventSubscriberInterface
 		}
 
 		// @TODO: We need to take into account the response type as well (html, xml, json)
-		$exception = $event->getException();
+		$exception = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
 
 		if ($exception->getCode() == 403) {
 			// On forbidden exception, we need to either:
 			// 		a) If user session is set, display forbidden page
 			// 		b) If user session is not set, redirect to login page
 
-			if (!empty($this->user)) {
+			if (!empty($this->container->get('security.token_storage')->getToken()->getUser()) && $this->container->get('security.token_storage')->getToken()->getUser() != "anon.") {
 				$template = $this->twig->render('errors/error.html.twig', [
 					'code' => 403,
 					'message' => 'Access Forbidden',
@@ -58,7 +58,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
 				$event->setResponse(new Response($template, 403));
 			}
 		} else {
-			if ($exception instanceof NotFoundHttpException) {
+			if ($exception instanceof NotFoundHttpException || $exception->getCode() == 404) {
 				$template = $this->twig->render('errors/error.html.twig', [
 					'code' => 404,
 					'message' => 'Page not Found',
